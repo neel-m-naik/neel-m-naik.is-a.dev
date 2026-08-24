@@ -6,14 +6,15 @@
     <title>Neel M Naik | Software Engineering & AI Portfolio</title>
     <meta name="description" content="Portfolio of Neel M Naik, specializing in AI, 3D Point Clouds, and Systems Optimization.">
     <link rel="stylesheet" href="style.css">
+    <!-- Three.js WebGL Engine -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- VanillaTilt.js for 3D card tilt -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 </head>
 <body>
 
-    <!-- Hero Section with Canvas Background -->
+    <!-- Hero Section with Three.js WebGL Point Cloud Background -->
     <header class="hero">
-        <canvas id="pointcloud-canvas"></canvas>
         <div class="container hero-content">
             <h1>Neel M Naik</h1>
             <p class="tagline">I build <span id="typewriter"></span><span class="cursor">|</span></p>
@@ -153,87 +154,70 @@
         }
         typeLoop();
 
-        // 2. Interactive Point-Cloud Canvas
-        const canvas = document.getElementById('pointcloud-canvas');
-        const ctx = canvas.getContext('2d');
-        let points = [];
-        const numPoints = 80;
-        let mouse = { x: null, y: null, radius: 100 };
+        // 2. Three.js 3D Point-Cloud Sphere
+        const heroSection = document.querySelector('.hero');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, heroSection.offsetWidth / heroSection.offsetHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 
-        function resizeCanvas() {
-            canvas.width = canvas.parentElement.offsetWidth;
-            canvas.height = canvas.parentElement.offsetHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        renderer.setSize(heroSection.offsetWidth, heroSection.offsetHeight);
+        renderer.domElement.id = 'pointcloud-canvas';
+        heroSection.insertBefore(renderer.domElement, heroSection.firstChild);
 
-        class Point {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.7;
-                this.vy = (Math.random() - 0.5) * 0.7;
-                this.size = Math.random() * 2 + 1;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+        // Generate 3D Point Cloud Geometry
+        const particleCount = 1200;
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
 
-                if (mouse.x !== null) {
-                    let dx = mouse.x - this.x;
-                    let dy = mouse.y - this.y;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < mouse.radius) {
-                        this.x -= (dx / dist) * 1.5;
-                        this.y -= (dy / dist) * 1.5;
-                    }
-                }
-            }
-            draw() {
-                ctx.fillStyle = '#38bdf8';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+        for (let i = 0; i < particleCount * 3; i += 3) {
+            const u = Math.random();
+            const v = Math.random();
+            const theta = u * 2.0 * Math.PI;
+            const phi = Math.acos(2.0 * v - 1.0);
+            const r = Math.cbrt(Math.random()) * 3.8;
+            
+            positions[i] = r * Math.sin(phi) * Math.cos(theta);
+            positions[i + 1] = r * Math.sin(phi) * Math.sin(theta);
+            positions[i + 2] = r * Math.cos(phi);
         }
 
-        for (let i = 0; i < numPoints; i++) points.push(new Point());
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
+        const material = new THREE.PointsMaterial({
+            color: 0x38bdf8,
+            size: 0.045,
+            transparent: true,
+            opacity: 0.75
+        });
+
+        const pointCloud = new THREE.Points(geometry, material);
+        scene.add(pointCloud);
+
+        camera.position.z = 6;
+
+        let mouseX = 0, mouseY = 0;
         window.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            mouse.x = e.clientX - rect.left;
-            mouse.y = e.clientY - rect.top;
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
         });
 
-        window.addEventListener('mouseleave', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
+        function animate() {
+            requestAnimationFrame(animate);
+            pointCloud.rotation.y += 0.0025;
+            pointCloud.rotation.x += 0.001;
 
-        function animatePoints() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < points.length; i++) {
-                points[i].update();
-                points[i].draw();
-                for (let j = i + 1; j < points.length; j++) {
-                    let dx = points[i].x - points[j].x;
-                    let dy = points[i].y - points[j].y;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 90) {
-                        ctx.strokeStyle = `rgba(56, 189, 248, ${1 - dist / 90 * 0.85})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(points[i].x, points[i].y);
-                        ctx.lineTo(points[j].x, points[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animatePoints);
+            pointCloud.rotation.y += mouseX * 0.005;
+            pointCloud.rotation.x += -mouseY * 0.005;
+
+            renderer.render(scene, camera);
         }
-        animatePoints();
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = heroSection.offsetWidth / heroSection.offsetHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(heroSection.offsetWidth, heroSection.offsetHeight);
+        });
 
         // 3. Category Filter
         function filterProjects(category) {
