@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neel M Naik | Software Engineering Portfolio</title>
-    <meta name="description" content="Portfolio of Neel M Naik, a software engineering student specializing in AI, Machine Learning, and Cloud Computing.">
-    <meta name="keywords" content="Neel M Naik, Software Engineer, AI, Machine Learning, Unity, Cloud, Portfolio">
+    <title>Neel M Naik | Software Engineering & AI Portfolio</title>
+    <meta name="description" content="Portfolio of Neel M Naik, specializing in AI, 3D Point Clouds, and Systems Optimization.">
     <link rel="stylesheet" href="style.css">
+    <!-- VanillaTilt.js for 3D card tilt -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 </head>
 <body>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Canvas Background -->
     <header class="hero">
-        <div class="container">
+        <canvas id="pointcloud-canvas"></canvas>
+        <div class="container hero-content">
             <h1>Neel M Naik</h1>
-            <p class="tagline">Software Engineering & Artificial Intelligence</p>
+            <p class="tagline">I build <span id="typewriter"></span><span class="cursor">|</span></p>
             
             <div class="action-buttons">
                 <a href="Neel_Naik_CV.pdf" class="btn-primary" target="_blank">Download CV</a>
@@ -28,13 +30,12 @@
         </div>
     </header>
 
-    <!-- Main Content Container -->
     <main class="container">
 
         <!-- About Section -->
         <section id="about">
             <h2>About Me</h2>
-            <p>I am a software engineering student specializing in artificial intelligence, data science, and cloud computing. I am passionate about building intelligent systems and solving complex problems, from 3D reconstruction algorithms to interactive virtual environments.</p>
+            <p>I am a software engineering student specializing in artificial intelligence, 3D point-cloud processing, and algorithmic optimization. Passionate about building high-performance models and interactive systems that scale.</p>
         </section>
 
         <!-- Tech Stack Section -->
@@ -42,27 +43,38 @@
             <h2>Technical Skills</h2>
             <div class="skills-grid">
                 <span class="skill-tag">Python</span>
-                <span class="skill-tag">Machine Learning</span>
+                <span class="skill-tag">Deep Learning / PyTorch</span>
+                <span class="skill-tag">PointNet & 3D Vision</span>
                 <span class="skill-tag">C# & Unity</span>
-                <span class="skill-tag">React</span>
-                <span class="skill-tag">AWS & Cloud Computing</span>
+                <span class="skill-tag">Constraint Satisfaction</span>
+                <span class="skill-tag">Streamlit</span>
                 <span class="skill-tag">SQL</span>
+                <span class="skill-tag">Git</span>
             </div>
         </section>
 
         <!-- Projects Section -->
         <section id="projects">
-            <h2>Featured Projects</h2>
+            <div class="projects-header">
+                <h2>Featured Projects</h2>
+                <!-- Filter Tabs -->
+                <div class="filter-tabs">
+                    <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+                    <button class="filter-btn" onclick="filterProjects('ml')">ML / Vision</button>
+                    <button class="filter-btn" onclick="filterProjects('systems')">Systems & 3D</button>
+                </div>
+            </div>
+
             <div class="projects-grid">
                 
                 <!-- Satellite ML Project -->
-                <div class="project-card">
+                <div class="project-card" data-category="ml" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
                     <h3>Satellite Identification via 3D Point Clouds</h3>
-                    <p>Developed an ML pipeline using PointNet autoencoders for 3D point cloud registration. Implemented PCA and ICP algorithms within Google Colab to accurately identify and reconstruct satellite models from spatial datasets.</p>
+                    <p>Engineered an end-to-end ML pipeline utilizing PointNet autoencoders for 3D point-cloud registration. Implemented PCA and Iterative Closest Point (ICP) algorithms to classify and reconstruct satellite models from spatial LiDAR datasets.</p>
                     <div class="project-tags">
                         <span>Python</span>
                         <span>PointNet</span>
-                        <span>Machine Learning</span>
+                        <span>Deep Learning</span>
                     </div>
                     <div class="card-links">
                         <a href="https://github.com/neel-m-naik/Satellite-ID-via-point-clouds/blob/main/Lidar_cloud_point_satellite_dataset_code.ipynb" class="project-link" target="_blank">View Code →</a>
@@ -70,13 +82,13 @@
                 </div>
 
                 <!-- Unity 3D World Project -->
-                <div class="project-card">
+                <div class="project-card" data-category="systems" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
                     <h3>Interactive 3D Virtual Environment</h3>
-                    <p>Designed and developed an immersive, interactive 3D world as a college mini-project using the Unity engine. Implemented custom user controls, environmental physics, and spatial design to create an engaging virtual experience.</p>
+                    <p>Constructed an interactive 3D virtual environment in Unity. Implemented custom player kinematics, environmental physics, and spatial layouts to provide real-time interactive rendering.</p>
                     <div class="project-tags">
                         <span>Unity</span>
                         <span>C#</span>
-                        <span>3D Design</span>
+                        <span>3D Spatial</span>
                     </div>
                     <div class="card-links">
                         <a href="https://github.com/neel-m-naik/Forest3D" class="project-link" target="_blank">View Code →</a>
@@ -84,13 +96,13 @@
                 </div>
 
                 <!-- Placement Scheduler Project -->
-                <div class="project-card">
-                    <h3>Dynamic Placement Week Scheduler & Replanning Engine</h3>
-                    <p>Engineered a low-churn discrete-event scheduling engine to coordinate high-contention campus recruitment drives. Implemented a priority-driven heuristic slot allocator that enforces strict hard constraints across 35 companies, 800 candidates, and 20 rooms. Built an interactive Streamlit control room with a real-time replanning engine to handle live disruptions while minimizing reshuffle churn.</p>
+                <div class="project-card" data-category="systems" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+                    <h3>Placement Week Scheduler & Replanning Engine</h3>
+                    <p>Designed a low-churn discrete-event heuristic engine resolving high-contention scheduling over 35 companies, 800 candidates, and 20 rooms. Features real-time disruption replanning with minimal entity reshuffling via Streamlit.</p>
                     <div class="project-tags">
                         <span>Python</span>
                         <span>Streamlit</span>
-                        <span>Optimization</span>
+                        <span>Heuristic Optimization</span>
                     </div>
                     <div class="card-links">
                         <a href="https://github.com/neel-m-naik/Placement-Week-Scheduler" class="project-link" target="_blank">View Code →</a>
@@ -102,10 +114,142 @@
 
     </main>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Neel M Naik. Built from scratch.</p>
     </footer>
 
+    <!-- Interactive Scripts -->
+    <script>
+        // 1. Typewriter Effect
+        const phrases = [
+            "3D point cloud pipelines.",
+            "deep learning architectures.",
+            "low-churn heuristic algorithms.",
+            "interactive spatial worlds."
+        ];
+        let phraseIdx = 0, charIdx = 0, isDeleting = false;
+        const typeTarget = document.getElementById("typewriter");
+
+        function typeLoop() {
+            const current = phrases[phraseIdx];
+            if (isDeleting) {
+                typeTarget.textContent = current.substring(0, charIdx - 1);
+                charIdx--;
+            } else {
+                typeTarget.textContent = current.substring(0, charIdx + 1);
+                charIdx++;
+            }
+
+            let speed = isDeleting ? 35 : 75;
+            if (!isDeleting && charIdx === current.length) {
+                speed = 1800;
+                isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                phraseIdx = (phraseIdx + 1) % phrases.length;
+                speed = 300;
+            }
+            setTimeout(typeLoop, speed);
+        }
+        typeLoop();
+
+        // 2. Interactive Point-Cloud Canvas
+        const canvas = document.getElementById('pointcloud-canvas');
+        const ctx = canvas.getContext('2d');
+        let points = [];
+        const numPoints = 80;
+        let mouse = { x: null, y: null, radius: 100 };
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Point {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.7;
+                this.vy = (Math.random() - 0.5) * 0.7;
+                this.size = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+                if (mouse.x !== null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouse.radius) {
+                        this.x -= (dx / dist) * 1.5;
+                        this.y -= (dy / dist) * 1.5;
+                    }
+                }
+            }
+            draw() {
+                ctx.fillStyle = '#38bdf8';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < numPoints; i++) points.push(new Point());
+
+        window.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        function animatePoints() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < points.length; i++) {
+                points[i].update();
+                points[i].draw();
+                for (let j = i + 1; j < points.length; j++) {
+                    let dx = points[i].x - points[j].x;
+                    let dy = points[i].y - points[j].y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 90) {
+                        ctx.strokeStyle = `rgba(56, 189, 248, ${1 - dist / 90 * 0.85})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(points[i].x, points[i].y);
+                        ctx.lineTo(points[j].x, points[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animatePoints);
+        }
+        animatePoints();
+
+        // 3. Category Filter
+        function filterProjects(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
