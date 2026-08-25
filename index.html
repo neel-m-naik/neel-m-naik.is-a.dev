@@ -3,49 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neel M Naik | Software Engineering & AI Portfolio</title>
-    <meta name="description" content="Portfolio of Neel M Naik, specializing in AI, 3D Point Clouds, and Systems Optimization.">
+    <title>Neel M Naik | AI, 3D Vision &amp; Systems Engineering</title>
+    <meta name="description" content="Portfolio of Neel M Naik, specializing in AI, 3D point-cloud processing, and systems optimization.">
+    <meta name="theme-color" content="#0a0d12">
+
+    <!-- Open Graph / Twitter — update og:url once this is deployed -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Neel M Naik | AI, 3D Vision & Systems Engineering">
+    <meta property="og:description" content="Portfolio of Neel M Naik, specializing in AI, 3D point-cloud processing, and systems optimization.">
+    <meta property="og:url" content="https://neel-m-naik.dev/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Neel M Naik | AI, 3D Vision & Systems Engineering">
+    <meta name="twitter:description" content="Portfolio of Neel M Naik, specializing in AI, 3D point-cloud processing, and systems optimization.">
+
+    <!-- Favicon — a small three-node mesh fragment, inline so no extra file is needed -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0d12'/%3E%3Cline x1='10' y1='22' x2='22' y2='10' stroke='%23ffb545' stroke-width='1.5'/%3E%3Cline x1='22' y1='10' x2='22' y2='22' stroke='%23ffb545' stroke-width='1.5'/%3E%3Cline x1='10' y1='22' x2='22' y2='22' stroke='%23ffb545' stroke-width='1.5'/%3E%3Ccircle cx='10' cy='22' r='2.6' fill='%235eead4'/%3E%3Ccircle cx='22' cy='10' r='2.6' fill='%235eead4'/%3E%3Ccircle cx='22' cy='22' r='2.6' fill='%235eead4'/%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
-    <!-- Three.js WebGL Engine -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- VanillaTilt.js for 3D card tilt -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
+    <!-- Loaded with defer so parsing isn't blocked; order is preserved -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
 
-    <!-- Global Interactive Background Network -->
-    <canvas id="bg-canvas"></canvas>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- Hero Section with Three.js WebGL Point Cloud Background -->
-    <header class="hero">
+    <nav class="nav">
+        <div class="container nav-inner">
+            <a href="#home" class="nav-logo">N·M·N</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Work</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="Neel_Naik_CV.pdf" class="btn-nav" target="_blank" rel="noopener">Résumé</a>
+        </div>
+    </nav>
+
+    <!-- Hero — Three.js point-cloud sphere, the literal subject of the work -->
+    <header class="hero" id="home">
+        <canvas id="pointcloud-canvas" aria-hidden="true"></canvas>
+
+        <div class="hud" aria-hidden="true">
+            <span>SCAN.POINTS&nbsp;<b id="hud-points">0</b></span>
+            <span>ROT_Y&nbsp;<b id="hud-rot">0.000</b>&nbsp;rad</span>
+        </div>
+
         <div class="container hero-content">
+            <p class="eyebrow">// portfolio</p>
             <h1>Neel M Naik</h1>
-            <p class="tagline">I build <span id="typewriter"></span><span class="cursor">|</span></p>
-            
+            <p class="tagline">I build <span id="typewriter"></span><span class="cursor" aria-hidden="true">|</span></p>
+
             <div class="action-buttons">
-                <a href="Neel_Naik_CV.pdf" class="btn-primary" target="_blank">Download CV</a>
+                <a href="Neel_Naik_CV.pdf" class="btn-primary" target="_blank" rel="noopener">Download CV</a>
             </div>
 
-            <div class="social-links">
-                <a href="https://github.com/neel-m-naik" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/neel-m-naik-760775ab/" target="_blank">LinkedIn</a>
-                <a href="mailto:neel.m.naik4@gmail.com">Email</a>
-            </div>
+            <ul class="social-links">
+                <li><a href="https://github.com/neel-m-naik" target="_blank" rel="noopener">GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/neel-m-naik-760775ab/" target="_blank" rel="noopener">LinkedIn</a></li>
+                <li><a href="mailto:neel.m.naik4@gmail.com">Email</a></li>
+            </ul>
         </div>
     </header>
 
-    <main class="container main-content">
+    <main class="container" id="main">
 
-        <!-- About Section with Interactive Snapshot Terminal -->
+        <!-- About -->
         <section id="about">
+            <p class="eyebrow">// about</p>
             <h2>About Me</h2>
             <div class="about-grid">
-                <div class="about-text">
+                <div class="about-text" data-reveal>
                     <p>I am a software engineering student specializing in artificial intelligence, 3D point-cloud processing, and algorithmic optimization. Passionate about building high-performance models and interactive systems that scale.</p>
                 </div>
 
-                <!-- Interactive Terminal Card -->
-                <div class="terminal-card" data-tilt data-tilt-max="5" data-tilt-speed="400">
+                <div class="terminal-card" data-reveal data-tilt data-tilt-max="5" data-tilt-speed="400">
                     <div class="terminal-header">
                         <span class="dot dot-red"></span>
                         <span class="dot dot-yellow"></span>
@@ -61,37 +100,39 @@
             </div>
         </section>
 
-        <!-- Tech Stack Section -->
+        <!-- Skills -->
         <section id="skills">
+            <p class="eyebrow">// stack</p>
             <h2>Technical Skills</h2>
-            <div class="skills-grid">
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">Deep Learning / PyTorch</span>
-                <span class="skill-tag">PointNet & 3D Vision</span>
-                <span class="skill-tag">C# & Unity</span>
-                <span class="skill-tag">Constraint Satisfaction</span>
-                <span class="skill-tag">Streamlit</span>
-                <span class="skill-tag">SQL</span>
-                <span class="skill-tag">Git</span>
-            </div>
+            <ul class="skills-grid" data-reveal>
+                <li class="skill-tag">Python</li>
+                <li class="skill-tag">Deep Learning / PyTorch</li>
+                <li class="skill-tag">PointNet &amp; 3D Vision</li>
+                <li class="skill-tag">C# &amp; Unity</li>
+                <li class="skill-tag">Constraint Satisfaction</li>
+                <li class="skill-tag">Streamlit</li>
+                <li class="skill-tag">SQL</li>
+                <li class="skill-tag">Git</li>
+            </ul>
         </section>
 
-        <!-- Projects Section -->
+        <!-- Projects -->
         <section id="projects">
             <div class="projects-header">
-                <h2>Featured Projects</h2>
-                <!-- Filter Tabs -->
-                <div class="filter-tabs">
-                    <button class="filter-btn active" onclick="filterProjects('all')">All</button>
-                    <button class="filter-btn" onclick="filterProjects('ml')">ML / Vision</button>
-                    <button class="filter-btn" onclick="filterProjects('systems')">Systems & 3D</button>
+                <div>
+                    <p class="eyebrow">// selected work</p>
+                    <h2>Featured Projects</h2>
+                </div>
+                <div class="filter-tabs" role="group" aria-label="Filter projects by category">
+                    <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+                    <button class="filter-btn" data-filter="ml" aria-pressed="false">ML / Vision</button>
+                    <button class="filter-btn" data-filter="systems" aria-pressed="false">Systems &amp; 3D</button>
                 </div>
             </div>
 
             <div class="projects-grid">
-                
-                <!-- Satellite ML Project -->
-                <div class="project-card" data-category="ml" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+
+                <article class="project-card" data-category="ml" data-reveal data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
                     <h3>Satellite Identification via 3D Point Clouds</h3>
                     <p>Engineered an end-to-end ML pipeline utilizing PointNet autoencoders for 3D point-cloud registration. Implemented PCA and Iterative Closest Point (ICP) algorithms to classify and reconstruct satellite models from spatial LiDAR datasets.</p>
                     <div class="project-tags">
@@ -100,12 +141,11 @@
                         <span>Deep Learning</span>
                     </div>
                     <div class="card-links">
-                        <a href="https://github.com/neel-m-naik/Satellite-ID-via-point-clouds/blob/main/Lidar_cloud_point_satellite_dataset_code.ipynb" class="project-link" target="_blank">View Code →</a>
+                        <a href="https://github.com/neel-m-naik/Satellite-ID-via-point-clouds/blob/main/Lidar_cloud_point_satellite_dataset_code.ipynb" class="project-link" target="_blank" rel="noopener">View Code <span aria-hidden="true">→</span></a>
                     </div>
-                </div>
+                </article>
 
-                <!-- Unity 3D World Project -->
-                <div class="project-card" data-category="systems" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+                <article class="project-card" data-category="systems" data-reveal data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
                     <h3>Interactive 3D Virtual Environment</h3>
                     <p>Constructed an interactive 3D virtual environment in Unity. Implemented custom player kinematics, environmental physics, and spatial layouts to provide real-time interactive rendering.</p>
                     <div class="project-tags">
@@ -114,13 +154,12 @@
                         <span>3D Spatial</span>
                     </div>
                     <div class="card-links">
-                        <a href="https://github.com/neel-m-naik/Forest3D" class="project-link" target="_blank">View Code →</a>
+                        <a href="https://github.com/neel-m-naik/Forest3D" class="project-link" target="_blank" rel="noopener">View Code <span aria-hidden="true">→</span></a>
                     </div>
-                </div>
+                </article>
 
-                <!-- Placement Scheduler Project -->
-                <div class="project-card" data-category="systems" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
-                    <h3>Placement Week Scheduler & Replanning Engine</h3>
+                <article class="project-card" data-category="systems" data-reveal data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+                    <h3>Placement Week Scheduler &amp; Replanning Engine</h3>
                     <p>Designed a low-churn discrete-event heuristic engine resolving high-contention scheduling over 35 companies, 800 candidates, and 20 rooms. Features real-time disruption replanning with minimal entity reshuffling via Streamlit.</p>
                     <div class="project-tags">
                         <span>Python</span>
@@ -128,216 +167,35 @@
                         <span>Heuristic Optimization</span>
                     </div>
                     <div class="card-links">
-                        <a href="https://github.com/neel-m-naik/Placement-Week-Scheduler" class="project-link" target="_blank">View Code →</a>
-                        <span style="color: #475569; margin: 0 0.5rem;">|</span>
-                        <a href="https://placement-week-scheduler-nh9wadhcdcc49gkgdpbdh8.streamlit.app/" class="project-link" target="_blank" style="color: #4ade80;">Live Demo ↗</a>
+                        <a href="https://github.com/neel-m-naik/Placement-Week-Scheduler" class="project-link" target="_blank" rel="noopener">View Code <span aria-hidden="true">→</span></a>
+                        <span class="link-sep">|</span>
+                        <a href="https://placement-week-scheduler-nh9wadhcdcc49gkgdpbdh8.streamlit.app/" class="project-link project-link--live" target="_blank" rel="noopener">Live Demo <span aria-hidden="true">↗</span></a>
                     </div>
-                </div>
-                
+                </article>
+
             </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" data-reveal>
+            <p class="eyebrow">// contact</p>
+            <h2>Let's Talk</h2>
+            <p class="contact-lead">Open to opportunities in AI, 3D vision, and systems engineering. The fastest way to reach me:</p>
+            <a class="contact-email" href="mailto:neel.m.naik4@gmail.com">neel.m.naik4@gmail.com</a>
+            <ul class="social-links social-links--contact">
+                <li><a href="https://github.com/neel-m-naik" target="_blank" rel="noopener">GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/neel-m-naik-760775ab/" target="_blank" rel="noopener">LinkedIn</a></li>
+            </ul>
         </section>
 
     </main>
 
     <footer>
-        <p>&copy; 2026 Neel M Naik. Built from scratch.</p>
+        <div class="container footer-inner">
+            <span>&copy; 2026 Neel M Naik. Built from scratch.</span>
+            <a href="#home" class="footer-top">Back to top ↑</a>
+        </div>
     </footer>
 
-    <!-- Interactive Scripts -->
-    <script>
-        // 1. Typewriter Effect
-        const phrases = [
-            "3D point cloud pipelines.",
-            "deep learning architectures.",
-            "low-churn heuristic algorithms.",
-            "interactive spatial worlds."
-        ];
-        let phraseIdx = 0, charIdx = 0, isDeleting = false;
-        const typeTarget = document.getElementById("typewriter");
-
-        function typeLoop() {
-            const current = phrases[phraseIdx];
-            if (isDeleting) {
-                typeTarget.textContent = current.substring(0, charIdx - 1);
-                charIdx--;
-            } else {
-                typeTarget.textContent = current.substring(0, charIdx + 1);
-                charIdx++;
-            }
-
-            let speed = isDeleting ? 35 : 75;
-            if (!isDeleting && charIdx === current.length) {
-                speed = 1800;
-                isDeleting = true;
-            } else if (isDeleting && charIdx === 0) {
-                isDeleting = false;
-                phraseIdx = (phraseIdx + 1) % phrases.length;
-                speed = 300;
-            }
-            setTimeout(typeLoop, speed);
-        }
-        typeLoop();
-
-        // 2. Hero Three.js 3D Point-Cloud Sphere
-        const heroSection = document.querySelector('.hero');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, heroSection.offsetWidth / heroSection.offsetHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-
-        renderer.setSize(heroSection.offsetWidth, heroSection.offsetHeight);
-        renderer.domElement.id = 'pointcloud-canvas';
-        heroSection.insertBefore(renderer.domElement, heroSection.firstChild);
-
-        const particleCount = 1200;
-        const geometry = new THREE.BufferGeometry();
-        const positions = new Float32Array(particleCount * 3);
-
-        for (let i = 0; i < particleCount * 3; i += 3) {
-            const u = Math.random();
-            const v = Math.random();
-            const theta = u * 2.0 * Math.PI;
-            const phi = Math.acos(2.0 * v - 1.0);
-            const r = Math.cbrt(Math.random()) * 3.8;
-            
-            positions[i] = r * Math.sin(phi) * Math.cos(theta);
-            positions[i + 1] = r * Math.sin(phi) * Math.sin(theta);
-            positions[i + 2] = r * Math.cos(phi);
-        }
-
-        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-        const material = new THREE.PointsMaterial({
-            color: 0x38bdf8,
-            size: 0.045,
-            transparent: true,
-            opacity: 0.75
-        });
-
-        const pointCloud = new THREE.Points(geometry, material);
-        scene.add(pointCloud);
-
-        camera.position.z = 6;
-
-        let mouseX = 0, mouseY = 0;
-        window.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-        });
-
-        function animateHero() {
-            requestAnimationFrame(animateHero);
-            pointCloud.rotation.y += 0.0025;
-            pointCloud.rotation.x += 0.001;
-
-            pointCloud.rotation.y += mouseX * 0.005;
-            pointCloud.rotation.x += -mouseY * 0.005;
-
-            renderer.render(scene, camera);
-        }
-        animateHero();
-
-        window.addEventListener('resize', () => {
-            camera.aspect = heroSection.offsetWidth / heroSection.offsetHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(heroSection.offsetWidth, heroSection.offsetHeight);
-        });
-
-        // 3. Global Interactive Background Canvas
-        const bgCanvas = document.getElementById('bg-canvas');
-        const bgCtx = bgCanvas.getContext('2d');
-        let bgPoints = [];
-        const bgPointCount = 45;
-        let globalMouse = { x: null, y: null, radius: 120 };
-
-        function resizeBgCanvas() {
-            bgCanvas.width = window.innerWidth;
-            bgCanvas.height = document.body.scrollHeight;
-        }
-        window.addEventListener('resize', resizeBgCanvas);
-        setTimeout(resizeBgCanvas, 100);
-
-        class BgPoint {
-            constructor() {
-                this.x = Math.random() * window.innerWidth;
-                this.y = Math.random() * (document.body.scrollHeight || window.innerHeight * 2);
-                this.vx = (Math.random() - 0.5) * 0.4;
-                this.vy = (Math.random() - 0.5) * 0.4;
-                this.size = Math.random() * 1.5 + 0.8;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > bgCanvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > bgCanvas.height) this.vy *= -1;
-
-                if (globalMouse.x !== null) {
-                    let dx = globalMouse.x - this.x;
-                    let dy = globalMouse.y - this.y;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < globalMouse.radius) {
-                        this.x -= (dx / dist) * 1.2;
-                        this.y -= (dy / dist) * 1.2;
-                    }
-                }
-            }
-            draw() {
-                bgCtx.fillStyle = 'rgba(56, 189, 248, 0.35)';
-                bgCtx.beginPath();
-                bgCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                bgCtx.fill();
-            }
-        }
-
-        for (let i = 0; i < bgPointCount; i++) bgPoints.push(new BgPoint());
-
-        window.addEventListener('mousemove', (e) => {
-            globalMouse.x = e.clientX;
-            globalMouse.y = e.clientY + window.scrollY;
-        });
-
-        window.addEventListener('mouseleave', () => {
-            globalMouse.x = null;
-            globalMouse.y = null;
-        });
-
-        function animateBg() {
-            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-            for (let i = 0; i < bgPoints.length; i++) {
-                bgPoints[i].update();
-                bgPoints[i].draw();
-                for (let j = i + 1; j < bgPoints.length; j++) {
-                    let dx = bgPoints[i].x - bgPoints[j].x;
-                    let dy = bgPoints[i].y - bgPoints[j].y;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 110) {
-                        bgCtx.strokeStyle = `rgba(56, 189, 248, ${0.15 - (dist / 110) * 0.15})`;
-                        bgCtx.lineWidth = 0.6;
-                        bgCtx.beginPath();
-                        bgCtx.moveTo(bgPoints[i].x, bgPoints[i].y);
-                        bgCtx.lineTo(bgPoints[j].x, bgPoints[j].y);
-                        bgCtx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animateBg);
-        }
-        animateBg();
-
-        // 4. Category Filter
-        function filterProjects(category) {
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            const cards = document.querySelectorAll('.project-card');
-            cards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-    </script>
 </body>
 </html>
